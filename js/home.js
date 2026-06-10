@@ -249,11 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    if (modalPlantBtn) {
-        modalPlantBtn.addEventListener('click', () => {
-            handlePlantSubmit(modalTextarea, modalImageInput, modalImagePreviewContainer, modalPlantBtn, newPotModal);
-        });
-    }
+
 
     // 7. Load Trending Roots List
     function updateTrendingRoots(pots) {

@@ -15,6 +15,7 @@ const Nav = {
         this.renderSidebar();
         this.renderBottomNav();
         this.renderMobileTopBar();
+        window.initNewPotModal();
     },
 
     async loadUnreadCount() {
@@ -473,4 +474,117 @@ window.validateImageFile = function(file, maxSizeMB = 5) {
         throw new Error(`Image must be under ${maxSizeMB}MB.`);
     }
     return true;
+};
+
+window.initNewPotModal = function() {
+    const modalTextarea = document.getElementById('modal-textarea');
+    const modalImageBtn = document.getElementById('modal-image-btn');
+    const modalImageInput = document.getElementById('modal-image-input');
+    const modalImagePreviewContainer = document.getElementById('modal-image-preview-container');
+    const modalImagePreview = document.getElementById('modal-image-preview');
+    const modalImageRemove = document.getElementById('modal-image-remove');
+    const modalPlantBtn = document.getElementById('modal-plant-btn');
+    const newPotModal = document.getElementById('new-pot-modal');
+
+    if (!modalPlantBtn) return; // Modal not on this page
+
+    // Only attach once
+    if (modalPlantBtn.dataset.initialized) return;
+    modalPlantBtn.dataset.initialized = 'true';
+
+    // File Preview
+    if (modalImageBtn && modalImageInput) {
+        modalImageBtn.addEventListener('click', () => modalImageInput.click());
+        modalImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    modalImagePreview.src = event.target.result;
+                    modalImagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+    
+    if (modalImageRemove) {
+        modalImageRemove.addEventListener('click', () => {
+            modalImageInput.value = '';
+            modalImagePreviewContainer.classList.add('hidden');
+            modalImagePreview.src = '';
+        });
+    }
+
+    // Submit
+    modalPlantBtn.addEventListener('click', async () => {
+        const text = modalTextarea.value.trim();
+        const file = modalImageInput.files[0];
+
+        if (!text && !file) {
+            showToast('Please type a thought or select an image.');
+            return;
+        }
+
+        modalPlantBtn.disabled = true;
+        modalPlantBtn.textContent = 'Planting...';
+
+        try {
+            const session = await Auth.getSession();
+            if (!session) return;
+            const userId = session.user.id;
+
+            let imageUrl = null;
+
+            if (file) {
+                try {
+                    window.validateImageFile(file);
+                } catch (validationError) {
+                    showToast(validationError.message);
+                    modalPlantBtn.disabled = false;
+                    modalPlantBtn.textContent = 'Plant';
+                    return;
+                }
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${userId}/${Date.now()}.${fileExt}`;
+                
+                const { error: uploadError } = await window.db.storage
+                    .from('pot-images')
+                    .upload(fileName, file, { cacheControl: '3600', upsert: true });
+
+                if (uploadError) throw uploadError;
+
+                const { data: { publicUrl } } = window.db.storage
+                    .from('pot-images')
+                    .getPublicUrl(fileName);
+                
+                imageUrl = publicUrl;
+            }
+
+            const { error: insertError } = await window.db
+                .from('pots')
+                .insert({ user_id: userId, content: text, image_url: imageUrl });
+
+            if (insertError) throw insertError;
+
+            modalTextarea.value = '';
+            modalImageInput.value = '';
+            if (modalImagePreviewContainer) modalImagePreviewContainer.classList.add('hidden');
+            
+            showToast('Post planted successfully!');
+
+            if (newPotModal) {
+                newPotModal.classList.remove('active');
+            }
+
+            window.location.reload();
+
+        } catch (error) {
+            console.error('Error posting pot:', error);
+            showToast(error.message || 'Failed to plant pot. Please try again.');
+        } finally {
+            modalPlantBtn.disabled = false;
+            modalPlantBtn.textContent = 'Plant';
+        }
+    });
 };
