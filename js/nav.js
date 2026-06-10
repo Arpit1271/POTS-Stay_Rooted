@@ -192,23 +192,37 @@ function renderPotCard(pot, currentUserId, options = {}) {
     const isLiked = pot.user_liked;
     const isReposted = pot.user_reposted;
     const isBookmarked = pot.user_bookmarked;
-    const avatarUrl = pot.avatar_url || `https://api.dicebear.com/7.x/initials/svg?seed=${pot.display_name || 'U'}`;
+    const avatarUrl = (pot.avatar_url && pot.avatar_url.trim() !== '') ? pot.avatar_url : `https://api.dicebear.com/7.x/initials/svg?seed=${pot.display_name || 'U'}`;
 
     return `
-        <article class="${options.cardStyle === 'flat' ? 'p-6 hover:bg-surface-container-low/50 transition-colors cursor-pointer' : 'bg-surface-bright rounded-xl p-6 soft-shadow border border-surface-container-low'}" data-pot-id="${pot.id}">
+        <article onclick="window.location.href='pot-detail.html?id=${pot.id}'" class="${options.cardStyle === 'flat' ? 'p-6 hover:bg-surface-container-low/50 transition-colors cursor-pointer' : 'bg-surface-bright rounded-xl p-6 soft-shadow border border-surface-container-low cursor-pointer hover:bg-surface-container-low/10 transition-colors'}" data-pot-id="${pot.id}">
             <div class="flex gap-4">
-                <img alt="${pot.display_name}" class="w-12 h-12 rounded-full object-cover border-2 border-surface-container shrink-0 cursor-pointer" src="${avatarUrl}" onclick="window.location.href='profile.html?id=${pot.user_id}'" />
+                <img alt="${pot.display_name}" class="w-12 h-12 rounded-full object-cover border-2 border-surface-container shrink-0 cursor-pointer" src="${avatarUrl}" onclick="event.stopPropagation(); window.location.href='profile.html?id=${pot.user_id}'" />
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center justify-between mb-1">
                         <div class="flex items-center gap-2 truncate">
-                            <span class="font-bold text-on-surface hover:underline cursor-pointer" onclick="window.location.href='profile.html?id=${pot.user_id}'">${pot.display_name || pot.username}</span>
+                            <span class="font-bold text-on-surface hover:underline cursor-pointer" onclick="event.stopPropagation(); window.location.href='profile.html?id=${pot.user_id}'">${pot.display_name || pot.username}</span>
                             ${pot.is_verified ? '<span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: \'FILL\' 1;">verified</span>' : ''}
                             <span class="text-on-surface-variant text-sm truncate">@${pot.username}</span>
                             <span class="text-on-surface-variant text-sm shrink-0">· ${timeAgo(pot.created_at)}</span>
                         </div>
-                        <button class="text-on-surface-variant hover:text-primary transition-colors" onclick="event.stopPropagation()">
-                            <span class="material-symbols-outlined">more_horiz</span>
-                        </button>
+                        <div class="relative">
+                            <button class="text-on-surface-variant hover:text-primary transition-colors" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('hidden')">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                            <div class="hidden absolute right-0 mt-2 w-32 bg-surface-bright rounded-xl shadow-lg border border-surface-container-low py-1 z-10" onclick="event.stopPropagation()">
+                                ${pot.user_id === currentUserId ? `
+                                <button onclick="window.deletePot('${pot.id}', this)" class="w-full text-left px-4 py-2 text-sm text-error hover:bg-error-container/30 transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    Delete
+                                </button>
+                                ` : ''}
+                                <button onclick="showToast('Reported')" class="w-full text-left px-4 py-2 text-sm text-on-surface hover:bg-surface-container-high transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">flag</span>
+                                    Report
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <p class="text-on-surface leading-relaxed text-[15px] mb-3">${escapeHtml(pot.content)}</p>
                     ${pot.image_url ? `
@@ -270,12 +284,28 @@ async function toggleLike(potId, btn) {
         btn.classList.remove('text-error');
         iconEl.style.fontVariationSettings = '';
         countEl.textContent = Math.max(0, count - 1);
-        await window.db.from('likes').delete().eq('user_id', userId).eq('pot_id', potId);
+        try {
+            const { error } = await window.db.from('likes').delete().eq('user_id', userId).eq('pot_id', potId);
+            if (error) throw error;
+        } catch (e) {
+            btn.classList.add('text-error');
+            iconEl.style.fontVariationSettings = "'FILL' 1";
+            countEl.textContent = count;
+            showToast('Action failed');
+        }
     } else {
         btn.classList.add('text-error');
         iconEl.style.fontVariationSettings = "'FILL' 1";
         countEl.textContent = count + 1;
-        await window.db.from('likes').insert({ user_id: userId, pot_id: potId });
+        try {
+            const { error } = await window.db.from('likes').insert({ user_id: userId, pot_id: potId });
+            if (error) throw error;
+        } catch (e) {
+            btn.classList.remove('text-error');
+            iconEl.style.fontVariationSettings = '';
+            countEl.textContent = count;
+            showToast('Action failed');
+        }
     }
 }
 
@@ -291,11 +321,25 @@ async function toggleRepost(potId, btn) {
     if (isReposted) {
         btn.classList.remove('text-secondary');
         countEl.textContent = Math.max(0, count - 1);
-        await window.db.from('reposts').delete().eq('user_id', userId).eq('pot_id', potId);
+        try {
+            const { error } = await window.db.from('reposts').delete().eq('user_id', userId).eq('pot_id', potId);
+            if (error) throw error;
+        } catch (e) {
+            btn.classList.add('text-secondary');
+            countEl.textContent = count;
+            showToast('Action failed');
+        }
     } else {
         btn.classList.add('text-secondary');
         countEl.textContent = count + 1;
-        await window.db.from('reposts').insert({ user_id: userId, pot_id: potId });
+        try {
+            const { error } = await window.db.from('reposts').insert({ user_id: userId, pot_id: potId });
+            if (error) throw error;
+        } catch (e) {
+            btn.classList.remove('text-secondary');
+            countEl.textContent = count;
+            showToast('Action failed');
+        }
     }
 }
 
@@ -310,13 +354,27 @@ async function toggleBookmark(potId, btn) {
     if (isBookmarked) {
         btn.classList.remove('text-primary');
         iconEl.style.fontVariationSettings = '';
-        await window.db.from('bookmarks').delete().eq('user_id', userId).eq('pot_id', potId);
-        showToast('Removed from bookmarks');
+        try {
+            const { error } = await window.db.from('bookmarks').delete().eq('user_id', userId).eq('pot_id', potId);
+            if (error) throw error;
+            showToast('Removed from bookmarks');
+        } catch (e) {
+            btn.classList.add('text-primary');
+            iconEl.style.fontVariationSettings = "'FILL' 1";
+            showToast('Action failed');
+        }
     } else {
         btn.classList.add('text-primary');
         iconEl.style.fontVariationSettings = "'FILL' 1";
-        await window.db.from('bookmarks').insert({ user_id: userId, pot_id: potId });
-        showToast('Added to bookmarks');
+        try {
+            const { error } = await window.db.from('bookmarks').insert({ user_id: userId, pot_id: potId });
+            if (error) throw error;
+            showToast('Added to bookmarks');
+        } catch (e) {
+            btn.classList.remove('text-primary');
+            iconEl.style.fontVariationSettings = '';
+            showToast('Action failed');
+        }
     }
 }
 
@@ -330,11 +388,25 @@ async function toggleFollow(userId, btn) {
     if (isFollowing) {
         btn.textContent = 'Follow';
         btn.className = btn.className.replace('bg-surface-container-high text-on-surface', 'bg-primary text-on-primary');
-        await window.db.from('follows').delete().eq('follower_id', followerId).eq('following_id', userId);
+        try {
+            const { error } = await window.db.from('follows').delete().eq('follower_id', followerId).eq('following_id', userId);
+            if (error) throw error;
+        } catch (e) {
+            btn.textContent = 'Following';
+            btn.className = btn.className.replace('bg-primary text-on-primary', 'bg-surface-container-high text-on-surface');
+            showToast('Action failed');
+        }
     } else {
         btn.textContent = 'Following';
         btn.className = btn.className.replace('bg-primary text-on-primary', 'bg-surface-container-high text-on-surface');
-        await window.db.from('follows').insert({ follower_id: followerId, following_id: userId });
+        try {
+            const { error } = await window.db.from('follows').insert({ follower_id: followerId, following_id: userId });
+            if (error) throw error;
+        } catch (e) {
+            btn.textContent = 'Follow';
+            btn.className = btn.className.replace('bg-surface-container-high text-on-surface', 'bg-primary text-on-primary');
+            showToast('Action failed');
+        }
     }
 }
 
@@ -377,6 +449,20 @@ window.toggleRepost = toggleRepost;
 window.toggleBookmark = toggleBookmark;
 window.toggleFollow = toggleFollow;
 window.fetchPotsWithState = fetchPotsWithState;
+
+window.deletePot = async function(potId, btn) {
+    if (!confirm('Delete this pot?')) return;
+    try {
+        const { error } = await window.db.from('pots').delete().eq('id', potId);
+        if (error) throw error;
+        const article = btn.closest('article');
+        if (article) article.remove();
+        showToast('Pot deleted');
+    } catch (e) {
+        console.error('Failed to delete pot', e);
+        showToast('Failed to delete pot');
+    }
+};
 
 window.validateImageFile = function(file, maxSizeMB = 5) {
     const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

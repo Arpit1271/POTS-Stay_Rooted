@@ -71,11 +71,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     wireImagePreview(composeImageBtn, composeImageInput, composeImagePreviewContainer, composeImagePreview, composeImageRemove);
     wireImagePreview(modalImageBtn, modalImageInput, modalImagePreviewContainer, modalImagePreview, modalImageRemove);
 
+    let currentOffset = 0;
+    const PAGE_SIZE = 15;
+    let isEndOfFeed = false;
+
     // 5. Load Feed Pots
-    async function loadFeed() {
-        if (feedLoading) feedLoading.classList.remove('hidden');
-        if (feedEmpty) feedEmpty.classList.add('hidden');
-        if (feedContainer) feedContainer.innerHTML = '';
+    async function loadFeed(isLoadMore = false) {
+        if (!isLoadMore) {
+            currentOffset = 0;
+            isEndOfFeed = false;
+            if (feedLoading) feedLoading.classList.remove('hidden');
+            if (feedEmpty) feedEmpty.classList.add('hidden');
+            if (feedContainer) feedContainer.innerHTML = '';
+            const existingBtn = document.getElementById('load-more-btn-home');
+            if (existingBtn) existingBtn.remove();
+        } else {
+            const btn = document.getElementById('load-more-btn-home');
+            if (btn) btn.textContent = 'Loading...';
+        }
 
         try {
             // Fetch pots with detail view from Supabase
@@ -83,14 +96,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .from('pots_with_details')
                 .select('*')
                 .order('created_at', { ascending: false })
-                .limit(30);
+                .range(currentOffset, currentOffset + PAGE_SIZE - 1);
 
             const pots = await fetchPotsWithState(query);
 
-            if (feedLoading) feedLoading.classList.add('hidden');
+            if (!isLoadMore && feedLoading) feedLoading.classList.add('hidden');
 
             if (!pots || pots.length === 0) {
-                if (feedEmpty) feedEmpty.classList.remove('hidden');
+                if (!isLoadMore && feedEmpty) feedEmpty.classList.remove('hidden');
+                isEndOfFeed = true;
+                const btn = document.getElementById('load-more-btn-home');
+                if (btn) btn.remove();
                 return;
             }
 
@@ -112,12 +128,37 @@ document.addEventListener('DOMContentLoaded', async () => {
                 feedContainer.appendChild(cardElement);
             });
 
+            if (pots.length < PAGE_SIZE) {
+                isEndOfFeed = true;
+            }
+
             // Extract and update trending hashtags
-            updateTrendingRoots(pots);
+            if (!isLoadMore) {
+                updateTrendingRoots(pots);
+            }
+
+            let loadMoreBtn = document.getElementById('load-more-btn-home');
+            if (isEndOfFeed) {
+                if (loadMoreBtn) loadMoreBtn.remove();
+            } else {
+                if (!loadMoreBtn) {
+                    loadMoreBtn = document.createElement('button');
+                    loadMoreBtn.id = 'load-more-btn-home';
+                    loadMoreBtn.className = 'w-full py-4 text-primary font-bold hover:bg-surface-container transition-colors border-t border-surface-container';
+                    loadMoreBtn.addEventListener('click', () => {
+                        currentOffset += PAGE_SIZE;
+                        loadFeed(true);
+                    });
+                    feedContainer.parentNode.insertBefore(loadMoreBtn, feedContainer.nextSibling);
+                }
+                loadMoreBtn.textContent = 'Load More';
+            }
 
         } catch (error) {
             console.error('Error loading feed:', error);
-            if (feedLoading) feedLoading.classList.add('hidden');
+            if (!isLoadMore && feedLoading) feedLoading.classList.add('hidden');
+            const btn = document.getElementById('load-more-btn-home');
+            if (btn) btn.textContent = 'Load More';
             showToast('Failed to load feed.');
         }
     }

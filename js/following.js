@@ -55,11 +55,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    let currentOffset = 0;
+    const PAGE_SIZE = 15;
+    let isEndOfFeed = false;
+
     // 5. Load Feed Pots for Followed Users
-    async function loadFollowingFeed() {
-        if (feedLoading) feedLoading.classList.remove('hidden');
-        if (feedEmpty) feedEmpty.classList.add('hidden');
-        if (feedContainer) feedContainer.innerHTML = '';
+    async function loadFollowingFeed(isLoadMore = false) {
+        if (!isLoadMore) {
+            currentOffset = 0;
+            isEndOfFeed = false;
+            if (feedLoading) feedLoading.classList.remove('hidden');
+            if (feedEmpty) feedEmpty.classList.add('hidden');
+            if (feedContainer) feedContainer.innerHTML = '';
+            const existingBtn = document.getElementById('load-more-btn-following');
+            if (existingBtn) existingBtn.remove();
+        } else {
+            const btn = document.getElementById('load-more-btn-following');
+            if (btn) btn.textContent = 'Loading...';
+        }
 
         try {
             // Get profiles we follow
@@ -73,8 +86,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const followingIds = (follows || []).map(f => f.following_id);
 
             if (followingIds.length === 0) {
-                if (feedLoading) feedLoading.classList.add('hidden');
-                if (feedEmpty) feedEmpty.classList.remove('hidden');
+                if (!isLoadMore && feedLoading) feedLoading.classList.add('hidden');
+                if (!isLoadMore && feedEmpty) feedEmpty.classList.remove('hidden');
+                isEndOfFeed = true;
+                const btn = document.getElementById('load-more-btn-following');
+                if (btn) btn.remove();
                 return;
             }
 
@@ -84,14 +100,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .select('*')
                 .in('user_id', followingIds)
                 .order('created_at', { ascending: false })
-                .limit(30);
+                .range(currentOffset, currentOffset + PAGE_SIZE - 1);
 
             const pots = await fetchPotsWithState(query);
 
-            if (feedLoading) feedLoading.classList.add('hidden');
+            if (!isLoadMore && feedLoading) feedLoading.classList.add('hidden');
 
             if (!pots || pots.length === 0) {
-                if (feedEmpty) feedEmpty.classList.remove('hidden');
+                if (!isLoadMore && feedEmpty) feedEmpty.classList.remove('hidden');
+                isEndOfFeed = true;
+                const btn = document.getElementById('load-more-btn-following');
+                if (btn) btn.remove();
                 return;
             }
 
@@ -104,9 +123,32 @@ document.addEventListener('DOMContentLoaded', async () => {
                 feedContainer.appendChild(cardElement);
             });
 
+            if (pots.length < PAGE_SIZE) {
+                isEndOfFeed = true;
+            }
+
+            let loadMoreBtn = document.getElementById('load-more-btn-following');
+            if (isEndOfFeed) {
+                if (loadMoreBtn) loadMoreBtn.remove();
+            } else {
+                if (!loadMoreBtn) {
+                    loadMoreBtn = document.createElement('button');
+                    loadMoreBtn.id = 'load-more-btn-following';
+                    loadMoreBtn.className = 'w-full py-4 text-primary font-bold hover:bg-surface-container transition-colors border-t border-surface-container';
+                    loadMoreBtn.addEventListener('click', () => {
+                        currentOffset += PAGE_SIZE;
+                        loadFollowingFeed(true);
+                    });
+                    feedContainer.parentNode.insertBefore(loadMoreBtn, feedContainer.nextSibling);
+                }
+                loadMoreBtn.textContent = 'Load More';
+            }
+
         } catch (error) {
             console.error('Error loading following feed:', error);
-            if (feedLoading) feedLoading.classList.add('hidden');
+            if (!isLoadMore && feedLoading) feedLoading.classList.add('hidden');
+            const btn = document.getElementById('load-more-btn-following');
+            if (btn) btn.textContent = 'Load More';
             showToast('Failed to load feed.');
         }
     }

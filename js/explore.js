@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userId = session.user.id;
 
     function sanitizeSearch(term) {
-        return term.replace(/[%_.\\,()]/g, '').trim();
+        return term.replace(/[%_.\\,()]/g, '').trim().replace(/\s+/g, '%');
     }
 
     // 2. Initialize Navigation & Sidebar

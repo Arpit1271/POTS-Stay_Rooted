@@ -188,10 +188,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    let currentOffset = 0;
+    const PAGE_SIZE = 15;
+    let isEndOfFeed = false;
+
     // 6. Fetch and Render Tab Contents
-    async function loadTabContent() {
-        if (postsLoading) postsLoading.classList.remove('hidden');
-        if (postsContainer) postsContainer.innerHTML = '';
+    async function loadTabContent(isLoadMore = false) {
+        if (!isLoadMore) {
+            currentOffset = 0;
+            isEndOfFeed = false;
+            if (postsLoading) postsLoading.classList.remove('hidden');
+            if (postsContainer) postsContainer.innerHTML = '';
+            const existingBtn = document.getElementById('load-more-btn-profile');
+            if (existingBtn) existingBtn.remove();
+        } else {
+            const btn = document.getElementById('load-more-btn-profile');
+            if (btn) btn.textContent = 'Loading...';
+        }
 
         try {
             if (activeTab === 'pots') {
@@ -199,19 +212,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                     .from('pots_with_details')
                     .select('*')
                     .eq('user_id', profileId)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .range(currentOffset, currentOffset + PAGE_SIZE - 1);
 
                 const pots = await fetchPotsWithState(query);
-                postsLoading.classList.add('hidden');
+                if (!isLoadMore) postsLoading.classList.add('hidden');
 
                 if (!pots || pots.length === 0) {
-                    postsContainer.innerHTML = `
-                        <div class="empty-state py-12">
-                            <span class="material-symbols-outlined icon">potted_plant</span>
-                            <h3>No pots planted yet</h3>
-                            <p>This grower hasn't shared any thoughts yet.</p>
-                        </div>
-                    `;
+                    if (!isLoadMore) {
+                        postsContainer.innerHTML = `
+                            <div class="empty-state py-12">
+                                <span class="material-symbols-outlined icon">potted_plant</span>
+                                <h3>No pots planted yet</h3>
+                                <p>This grower hasn't shared any thoughts yet.</p>
+                            </div>
+                        `;
+                    }
+                    isEndOfFeed = true;
+                    const btn = document.getElementById('load-more-btn-profile');
+                    if (btn) btn.remove();
                     return;
                 }
 
@@ -219,24 +238,32 @@ document.addEventListener('DOMContentLoaded', async () => {
                     postsContainer.innerHTML += renderPotCard(pot, currentUserId, { cardStyle: 'flat' });
                 });
 
+                if (pots.length < PAGE_SIZE) isEndOfFeed = true;
+
             } else if (activeTab === 'replies') {
                 // Fetch replies (comments table joined with pot details/profile details)
                 const { data: comments, error } = await window.db
                     .from('comments')
                     .select('*, pots(content, user_id, profiles(username, display_name))')
                     .eq('user_id', profileId)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .range(currentOffset, currentOffset + PAGE_SIZE - 1);
 
-                postsLoading.classList.add('hidden');
+                if (!isLoadMore) postsLoading.classList.add('hidden');
 
                 if (error || !comments || comments.length === 0) {
-                    postsContainer.innerHTML = `
-                        <div class="empty-state py-12">
-                            <span class="material-symbols-outlined icon">chat</span>
-                            <h3>No replies yet</h3>
-                            <p>This grower hasn't commented on any pots yet.</p>
-                        </div>
-                    `;
+                    if (!isLoadMore) {
+                        postsContainer.innerHTML = `
+                            <div class="empty-state py-12">
+                                <span class="material-symbols-outlined icon">chat</span>
+                                <h3>No replies yet</h3>
+                                <p>This grower hasn't commented on any pots yet.</p>
+                            </div>
+                        `;
+                    }
+                    isEndOfFeed = true;
+                    const btn = document.getElementById('load-more-btn-profile');
+                    if (btn) btn.remove();
                     return;
                 }
 
@@ -257,35 +284,65 @@ document.addEventListener('DOMContentLoaded', async () => {
                     `;
                 });
 
+                if (comments.length < PAGE_SIZE) isEndOfFeed = true;
+
             } else if (activeTab === 'media') {
                 const query = window.db
                     .from('pots_with_details')
                     .select('*')
                     .eq('user_id', profileId)
                     .not('image_url', 'is', null)
-                    .order('created_at', { ascending: false });
+                    .order('created_at', { ascending: false })
+                    .range(currentOffset, currentOffset + PAGE_SIZE - 1);
 
                 const pots = await fetchPotsWithState(query);
-                postsLoading.classList.add('hidden');
+                if (!isLoadMore) postsLoading.classList.add('hidden');
 
                 if (!pots || pots.length === 0) {
-                    postsContainer.innerHTML = `
-                        <div class="empty-state py-12">
-                            <span class="material-symbols-outlined icon">image</span>
-                            <h3>No media posts</h3>
-                            <p>This grower hasn't posted any plant photos yet.</p>
-                        </div>
-                    `;
+                    if (!isLoadMore) {
+                        postsContainer.innerHTML = `
+                            <div class="empty-state py-12">
+                                <span class="material-symbols-outlined icon">image</span>
+                                <h3>No media posts</h3>
+                                <p>This grower hasn't posted any plant photos yet.</p>
+                            </div>
+                        `;
+                    }
+                    isEndOfFeed = true;
+                    const btn = document.getElementById('load-more-btn-profile');
+                    if (btn) btn.remove();
                     return;
                 }
 
                 pots.forEach(pot => {
                     postsContainer.innerHTML += renderPotCard(pot, currentUserId, { cardStyle: 'flat' });
                 });
+
+                if (pots.length < PAGE_SIZE) isEndOfFeed = true;
             }
+
+            let loadMoreBtn = document.getElementById('load-more-btn-profile');
+            if (isEndOfFeed) {
+                if (loadMoreBtn) loadMoreBtn.remove();
+            } else {
+                if (!loadMoreBtn) {
+                    loadMoreBtn = document.createElement('button');
+                    loadMoreBtn.id = 'load-more-btn-profile';
+                    loadMoreBtn.className = 'w-full py-4 text-primary font-bold hover:bg-surface-container transition-colors border-t border-surface-container';
+                    loadMoreBtn.addEventListener('click', () => {
+                        currentOffset += PAGE_SIZE;
+                        loadTabContent(true);
+                    });
+                    postsContainer.parentNode.insertBefore(loadMoreBtn, postsContainer.nextSibling);
+                }
+                loadMoreBtn.textContent = 'Load More';
+            }
+
         } catch (err) {
             console.error('Error fetching tab data:', err);
-            postsLoading.classList.add('hidden');
+            if (!isLoadMore) postsLoading.classList.add('hidden');
+            const btn = document.getElementById('load-more-btn-profile');
+            if (btn) btn.textContent = 'Load More';
         }
     }
 
