@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>POTS - Explore</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js?v=3"></script>
+    <script src="js/auth.js?v=3"></script>
+    <script src="js/nav.js"></script>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen antialiased flex flex-col md:flex-row">
+    <!-- Mobile Top Bar -->
+    <header id="mobile-top-bar" class="md:hidden sticky top-0 z-40 flex justify-between items-center px-6 py-4 w-full mx-auto bg-surface/90 backdrop-blur-md border-b border-surface-container-high shadow-sm"></header>
+
+    <!-- Desktop Sidebar -->
+    <nav id="sidebar-nav" class="hidden md:flex h-screen w-64 fixed left-0 top-0 flex-col py-8 px-6 gap-8 bg-surface border-r border-surface-container-low shadow-sm z-30 overflow-y-auto"></nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 md:ml-64 pb-20 md:pb-0 min-h-screen">
+        <!-- Explore Top Bar (visible on desktop too) -->
+        <div class="sticky top-0 z-20 bg-surface/90 backdrop-blur-md border-b border-surface-container-low px-6 py-4 flex items-center justify-between gap-4">
+            <span class="text-xl font-headline font-bold text-primary hidden md:block">POTS</span>
+            <div class="relative flex-1 max-w-xl">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                <input id="explore-search" type="text" placeholder="Search roots, pots, growers..." class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:bg-surface transition-all placeholder:text-on-surface-variant" />
+            </div>
+            <button onclick="document.getElementById('new-pot-modal')?.classList.add('active'); document.getElementById('new-pot-modal') || (window.location.href='home.html')" class="bg-primary text-on-primary font-bold py-2.5 px-5 rounded-xl hover:opacity-90 transition-opacity text-sm hidden md:block">New Pot</button>
+        </div>
+
+        <!-- Page Content -->
+        <div class="px-6 py-6 max-w-5xl page-fade-in">
+            <!-- Trending Roots Section (editorial / curated) -->
+            <div id="trending-section">
+                <!-- Header Row -->
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-2xl font-headline font-bold text-on-surface">Trending Roots</h2>
+                    <a href="#" class="text-primary text-sm font-semibold hover:underline flex items-center gap-1">
+                        <span>→</span> View All
+                    </a>
+                </div>
+
+                <!-- Grid: Hero Card + Right Column -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Hero Card (left, ~63%) -->
+                    <a href="#" class="relative block md:w-[63%] w-full rounded-xl overflow-hidden group min-h-[340px] md:min-h-[400px]">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuARhXM-FI8OcIiivrg0wuBFqwQnTyPZurXyWxNX42fAcZH_Xs2pp3tXH0qMoOb6rADurYOv3E1UiwHqlx04cvCmw-WOwNzEI7Z-9-bX_6cQn-oskbZ5MfwpmEUwUIKclNBEnlWlqHbXJgQ6NOkrl9HBpMmzEb4SzAHmGmcpVw6w1UEj0yt11rAteI2gs1sz2F7EXbBUXxYf0R6mrTUGy71NVc7TZI0h0uIVbRZlokjP3MjL2Vmk3pf1gGYuE_thDJwFA_fFiG2VV-E" alt="Urban Jungle Mastery" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <span class="inline-block bg-primary text-on-primary text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">Trending</span>
+                            <h3 class="text-white font-headline font-bold text-2xl md:text-3xl leading-tight mb-1">Urban Jungle Mastery</h3>
+                            <p class="text-white/80 text-sm">Discover the secrets to thriving Monsteras.</p>
+                        </div>
+                    </a>
+
+                    <!-- Right Column (stacked, ~37%) -->
+                    <div class="md:w-[37%] w-full flex flex-col gap-4">
+                        <!-- Desert Vibes Card -->
+                        <a href="#" class="relative block rounded-xl overflow-hidden group flex-1 min-h-[180px]">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_MQJfVb38YIXULoB06t5OkshjZasgJ0XMQ0hHHQDqY_h2ZXep8nr0u1R9kKReN2SbcfKqV3zRpYXGlDiM-PQ6j0V14fggeS6o_mVre90GszmegHCTBZRVZgXtGnvPzsvKq0BR23bOSjM6bCYYgSg-5eh9-H8TpQZP6xmrY_g4j_8yyiezf5SCfZQ3XbnG7qUFrKgrB1mS_fnABvaQ4QYMuc-lnkllxGFGL5wEAlHVGba1n0bF0pzeZIwIFL_BPL8TftVyuvCELdA" alt="Desert Vibes" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-4">
+                                <h4 class="text-white font-headline font-bold text-lg">Desert Vibes</h4>
+                            </div>
+                        </a>
+
+                        <!-- Propagation Tips Card -->
+                        <div class="bg-surface-container-high/50 rounded-xl p-5 flex flex-col gap-3 flex-1">
+                            <span class="material-symbols-outlined text-on-surface-variant text-[28px]">chat_bubble</span>
+                            <h4 class="font-headline font-bold text-on-surface text-base">Propagation Tips</h4>
+                            <p class="text-on-surface-variant text-sm leading-relaxed">Join the community discussion on water vs. soil propagation...</p>
+                            <div class="flex items-center gap-2 mt-auto">
+                                <div class="flex -space-x-2">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs78WLABR68h7gsjNIlv7382VqOi4ivCvCsAYHi70CmGu5wbjUBncyut8RZMfeJU-X18SGj8CNYIkNIXu_0Cnh_SGha4HHk2Iwe1huv2M4YgBPA_5nalTLyGsC6VwREIc8WDCxAAYT3v5sOtGM5SjfceZSqcJPK5R-wLnFOMYDt-aDSAO2z0TAd3MulLbrDRjXuyNkQq3FZbjHG8rP332y4iC4pkyoHYzOoRbZgD-TOXm_-7YBDMtU8a0ggkoU9mgo0rCzckAPTIw" alt="User" class="w-7 h-7 rounded-full object-cover border-2 border-surface-container-high" />
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIaNS3UWeeByFCyodsy_IHWVsp2urIbtp3FjkwXXhC_LgF15Hwdq9Qr8tHWq9bMpS42VzHq45Hwg113LVFHW22LH303PJ07MdPQfFDEpxt0x5OT8OftHcLlY-jIVsCR4lBGUnUn-Sfik2soHxky38iA5Mt_UMlKYBPqvQXLzZeGZHB7hiZouPcfNrpiL-bZSkJd4psQQoJ0EEX8XERJauaskTmBaWEIjNmiZojbfsDe7BD-aBm6wvQ8hCVw_RfEo02iL-lYxQp3uo" alt="User" class="w-7 h-7 rounded-full object-cover border-2 border-surface-container-high" />
+                                </div>
+                                <span class="text-on-surface-variant text-xs font-medium">+42 rooting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Results (hidden by default, shown when user types) -->
+            <div id="search-results" class="hidden mt-6">
+                <!-- Profiles Results -->
+                <div id="search-profiles-section" class="hidden mb-6">
+                    <h3 class="text-lg font-headline font-bold text-on-surface mb-3">Growers</h3>
+                    <div id="search-profiles" class="flex flex-col gap-2"></div>
+                </div>
+
+                <!-- Pots Results -->
+                <div id="search-pots-section" class="hidden">
+                    <h3 class="text-lg font-headline font-bold text-on-surface mb-3">Pots</h3>
+                    <div id="search-pots" class="flex flex-col gap-3"></div>
+                </div>
+
+                <!-- No Results -->
+                <div id="search-empty" class="hidden empty-state">
+                    <span class="material-symbols-outlined icon">search_off</span>
+                    <h3>No results found</h3>
+                    <p>Try searching for different keywords, usernames, or hashtags.</p>
+                </div>
+
+                <!-- Search Loading -->
+                <div id="search-loading" class="hidden flex items-center justify-center py-12">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Nav -->
+    <nav id="bottom-nav" class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container shadow-[0_-4px_20px_rgba(46,50,48,0.06)] rounded-t-xl border-t border-surface-container-low pb-safe"></nav>
+
+    <script src="js/explore.js"></script>
+</body>
+</html>

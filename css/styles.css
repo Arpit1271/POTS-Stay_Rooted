@@ -1,0 +1,319 @@
+/* ============================================
+   POTS — Terra Design System Styles
+   Shared across all pages
+   ============================================ */
+
+/* --- Base --- */
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #faf6f0;
+    color: #2e3230;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6, .font-headline {
+    font-family: 'Literata', serif;
+}
+
+/* --- Soft Shadow (Terra elevation) --- */
+.soft-shadow {
+    box-shadow: 0 4px 20px rgba(46, 50, 48, 0.06);
+}
+
+.soft-shadow-md {
+    box-shadow: 0 6px 30px rgba(46, 50, 48, 0.1);
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c4c8bc;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #74796e;
+}
+
+/* --- Safe Area Padding (mobile) --- */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .pb-safe {
+        padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+    }
+}
+
+/* --- Page Transition --- */
+.page-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Toast Notification --- */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #2e3230;
+    color: #f5f0e8;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- Loading Spinner --- */
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #eae6de;
+    border-top-color: #4a7c59;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Empty State --- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+    text-align: center;
+}
+
+.empty-state .icon {
+    font-size: 48px;
+    color: #c4c8bc;
+    margin-bottom: 16px;
+}
+
+.empty-state h3 {
+    font-family: 'Literata', serif;
+    font-size: 20px;
+    color: #2e3230;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #4a4e4a;
+    font-size: 14px;
+    max-width: 300px;
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(46, 50, 48, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: #faf6f0;
+    border-radius: 1.5rem;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(46, 50, 48, 0.15);
+    transform: scale(0.95);
+    transition: transform 0.2s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* --- Auth Pages Specific --- */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+}
+
+.auth-brand {
+    flex: 1;
+    background: linear-gradient(135deg, #4a7c59 0%, #2a6038 50%, #1a4025 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-brand::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 C30 5 35 15 35 25 C35 35 30 40 30 40 C30 40 25 35 25 25 C25 15 30 5 30 5Z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+}
+
+.auth-form-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    background: #faf6f0;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: #f0ece4;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    color: #2e3230;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.auth-input:focus {
+    border-color: #4a7c59;
+    background: #faf6f0;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.15);
+}
+
+.auth-input::placeholder {
+    color: #74796e;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: #4a7c59;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.auth-btn:hover {
+    background: #3d6a4b;
+    box-shadow: 0 4px 20px rgba(74, 124, 89, 0.3);
+}
+
+.auth-btn:active {
+    transform: scale(0.98);
+}
+
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- Tab styles --- */
+.tab-item {
+    position: relative;
+    padding: 12px 0;
+    font-weight: 600;
+    color: #4a4e4a;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-align: center;
+    flex: 1;
+}
+
+.tab-item:hover {
+    color: #4a7c59;
+}
+
+.tab-item.active {
+    color: #4a7c59;
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background: #4a7c59;
+    border-radius: 3px;
+}
+
+/* --- Notification Item --- */
+.notification-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 24px;
+    transition: background 0.15s ease;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: #f5f1ea;
+}
+
+.notification-item.unread {
+    background: #f0ece4;
+}
+
+.notification-item.unread:hover {
+    background: #eae6de;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .auth-brand {
+        display: none;
+    }
+    
+    .auth-form-side {
+        padding: 32px 24px;
+    }
+}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>POTS - Create Account</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js?v=3"></script>
+    <script src="js/auth.js?v=3"></script>
+    <style>
+        @keyframes floatLeaf {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(-24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes growIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .animate-fade-up { animation: fadeInUp 0.6s ease-out both; }
+        .animate-fade-up-1 { animation: fadeInUp 0.6s ease-out 0.1s both; }
+        .animate-fade-up-2 { animation: fadeInUp 0.6s ease-out 0.15s both; }
+        .animate-fade-up-3 { animation: fadeInUp 0.6s ease-out 0.2s both; }
+        .animate-fade-up-4 { animation: fadeInUp 0.6s ease-out 0.25s both; }
+        .animate-fade-up-5 { animation: fadeInUp 0.6s ease-out 0.3s both; }
+        .animate-fade-up-6 { animation: fadeInUp 0.6s ease-out 0.35s both; }
+        .animate-fade-right { animation: fadeInRight 0.8s ease-out both; }
+        .animate-grow { animation: growIn 0.5s ease-out both; }
+        .float-leaf { animation: floatLeaf 6s ease-in-out infinite; }
+        .float-leaf-delayed { animation: floatLeaf 6s ease-in-out 2s infinite; }
+        .float-leaf-slow { animation: floatLeaf 8s ease-in-out 1s infinite; }
+
+        .leaf-shape {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50% 0 50% 0;
+        }
+        .leaf-shape-alt {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 0 50% 0 50%;
+        }
+
+        .btn-loading {
+            background: linear-gradient(90deg, #4a7c59 25%, #5a9c6a 50%, #4a7c59 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        .auth-input-wrap { position: relative; }
+        .auth-input-wrap .auth-input:focus + .input-glow,
+        .auth-input-wrap .input-group:focus-within + .input-glow { opacity: 1; }
+        .input-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: rgba(74, 124, 89, 0.08);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Password strength bar */
+        .strength-bar {
+            height: 3px;
+            border-radius: 3px;
+            transition: all 0.4s ease;
+        }
+
+        .animate-check {
+            animation: checkPop 0.3s ease-out both;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+    <div class="auth-container">
+        <!-- LEFT: Brand Panel -->
+        <div class="auth-brand">
+            <div class="leaf-shape float-leaf" style="top: 10%; left: 15%; transform: rotate(-20deg);"></div>
+            <div class="leaf-shape-alt float-leaf-delayed" style="top: 25%; right: 20%; transform: rotate(30deg); width: 35px; height: 55px;"></div>
+            <div class="leaf-shape float-leaf-slow" style="bottom: 20%; left: 25%; transform: rotate(15deg); width: 50px; height: 70px;"></div>
+            <div class="leaf-shape-alt float-leaf" style="bottom: 35%; right: 15%; transform: rotate(-25deg);"></div>
+            <div class="leaf-shape float-leaf-delayed" style="top: 60%; left: 10%; transform: rotate(40deg); width: 25px; height: 40px;"></div>
+
+            <div class="relative z-10 text-center max-w-md">
+                <div class="animate-fade-right mb-8">
+                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-[1.25rem] bg-white/10 backdrop-blur-sm mb-6 shadow-lg">
+                        <span class="material-symbols-outlined text-white" style="font-size: 40px; font-variation-settings: 'FILL' 1;">potted_plant</span>
+                    </div>
+                    <h1 class="font-headline text-white text-5xl font-bold tracking-tight mb-3">POTS</h1>
+                    <div class="w-12 h-0.5 bg-white/30 mx-auto mb-4 rounded-full"></div>
+                    <p class="text-white/90 text-xl font-headline font-light italic tracking-wide">Stay Rooted</p>
+                </div>
+
+                <div class="animate-fade-up-2">
+                    <p class="text-white/70 text-base leading-relaxed max-w-sm mx-auto">
+                        A digital garden for authentic internet culture. Grow your ideas, cultivate connections, and let your thoughts bloom.
+                    </p>
+                </div>
+
+                <div class="mt-12 animate-fade-up-3">
+                    <svg class="mx-auto float-leaf-slow" width="120" height="140" viewBox="0 0 120 140" fill="none">
+                        <path d="M35 95 L42 130 L78 130 L85 95 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" rx="4"/>
+                        <path d="M30 88 L90 88 L90 98 L30 98 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" rx="3"/>
+                        <path d="M60 88 Q60 65 55 50" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M60 88 Q62 70 70 55" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <path d="M55 50 Q40 35 45 20 Q55 30 55 50Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                        <path d="M55 50 Q70 40 80 25 Q65 40 55 50Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                        <path d="M70 55 Q85 45 90 35 Q80 50 70 55Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                        <path d="M58 70 Q40 60 30 50 Q45 65 58 70Z" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                        <circle cx="47" cy="25" r="2" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="82" cy="30" r="1.5" fill="rgba(255,255,255,0.12)"/>
+                        <circle cx="35" cy="52" r="1.5" fill="rgba(255,255,255,0.1)"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Signup Form -->
+        <div class="auth-form-side">
+            <div class="auth-form overflow-y-auto max-h-screen py-8">
+                <!-- Header -->
+                <div class="text-center mb-8 animate-fade-up">
+                    <div class="md:hidden inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-5">
+                        <span class="material-symbols-outlined text-primary" style="font-size: 28px; font-variation-settings: 'FILL' 1;">potted_plant</span>
+                    </div>
+                    <h2 class="font-headline text-3xl font-bold text-on-surface mb-2">Create Your Garden</h2>
+                    <p class="text-on-surface-variant text-base">Join the community</p>
+                </div>
+
+                <!-- Success Message (hidden by default) -->
+                <div id="success-message" class="hidden mb-6 p-5 rounded-xl bg-primary-fixed/60 border border-primary/20 text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-3 animate-check">
+                        <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </div>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-1">Check Your Email</h3>
+                    <p class="text-on-surface-variant text-sm">We've sent a confirmation link to your email address. Click it to activate your garden.</p>
+                    <a href="index.html" class="inline-block mt-4 text-sm font-bold text-primary hover:underline underline-offset-2">Back to Sign In →</a>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error-message" class="hidden mb-6 p-4 rounded-xl bg-error-container/60 border border-error/20 animate-grow">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-error text-xl mt-0.5">error</span>
+                        <p id="error-text" class="text-on-error-container text-sm font-medium"></p>
+                    </div>
+                </div>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="space-y-4" novalidate>
+                    <!-- Display Name -->
+                    <div class="animate-fade-up-1">
+                        <label for="display-name" class="block text-sm font-semibold text-on-surface mb-2">Display Name</label>
+                        <div class="auth-input-wrap">
+                            <input 
+                                type="text" 
+                                id="display-name" 
+                                class="auth-input" 
+                                placeholder="Your name"
+                                autocomplete="name"
+                                required
+                            />
+                            <div class="input-glow"></div>
+                        </div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="animate-fade-up-2">
+                        <label for="username" class="block text-sm font-semibold text-on-surface mb-2">Username</label>
+                        <div class="auth-input-wrap">
+                            <div class="input-group relative flex items-center">
+                                <span class="absolute left-4 text-outline font-semibold text-sm select-none pointer-events-none">@</span>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    class="auth-input pl-9" 
+                                    placeholder="username"
+                                    autocomplete="username"
+                                    required
+                                    pattern="^[a-zA-Z0-9_]{3,20}$"
+                                />
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+                        <p class="text-xs text-outline mt-1.5 ml-1">Letters, numbers, and underscores. 3–20 characters.</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="animate-fade-up-3">
+                        <label for="email" class="block text-sm font-semibold text-on-surface mb-2">Email</label>
+                        <div class="auth-input-wrap">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                class="auth-input" 
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            />
+                            <div class="input-glow"></div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="animate-fade-up-4">
+                        <label for="password" class="block text-sm font-semibold text-on-surface mb-2">Password</label>
+                        <div class="auth-input-wrap">
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    class="auth-input pr-12" 
+                                    placeholder="Min. 6 characters"
+                                    autocomplete="new-password"
+                                    required
+                                    minlength="6"
+                                />
+                                <button 
+                                    type="button" 
+                                    id="toggle-password" 
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all duration-200"
+                                    aria-label="Toggle password visibility"
+                                >
+                                    <span class="material-symbols-outlined text-xl" id="password-icon">visibility_off</span>
+                                </button>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+                        <!-- Password Strength -->
+                        <div class="mt-2 flex gap-1.5">
+                            <div class="flex-1 strength-bar bg-surface-container-high rounded-full" id="str-1"></div>
+                            <div class="flex-1 strength-bar bg-surface-container-high rounded-full" id="str-2"></div>
+                            <div class="flex-1 strength-bar bg-surface-container-high rounded-full" id="str-3"></div>
+                            <div class="flex-1 strength-bar bg-surface-container-high rounded-full" id="str-4"></div>
+                        </div>
+                        <p class="text-xs mt-1 ml-1" id="strength-text">&nbsp;</p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="animate-fade-up-5">
+                        <label for="confirm-password" class="block text-sm font-semibold text-on-surface mb-2">Confirm Password</label>
+                        <div class="auth-input-wrap">
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="confirm-password" 
+                                    class="auth-input pr-12" 
+                                    placeholder="Re-enter your password"
+                                    autocomplete="new-password"
+                                    required
+                                />
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-xl hidden" id="match-icon" style="font-variation-settings: 'FILL' 1;"></span>
+                            </div>
+                            <div class="input-glow"></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="animate-fade-up-6 pt-2">
+                        <button type="submit" id="signup-btn" class="auth-btn flex items-center justify-center gap-2 group">
+                            <span id="btn-text">Create Account</span>
+                            <span class="material-symbols-outlined text-xl transition-transform duration-200 group-hover:translate-x-0.5" id="btn-icon">arrow_forward</span>
+                            <div id="btn-spinner" class="hidden">
+                                <div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Divider -->
+                <div class="flex items-center gap-4 my-6 animate-fade-up-6">
+                    <div class="flex-1 h-px bg-surface-container-high"></div>
+                    <span class="text-xs font-semibold text-outline uppercase tracking-widest">or</span>
+                    <div class="flex-1 h-px bg-surface-container-high"></div>
+                </div>
+
+                <!-- Sign In Link -->
+                <div class="text-center animate-fade-up-6">
+                    <p class="text-on-surface-variant text-sm">
+                        Already have an account? 
+                        <a href="index.html" class="font-bold text-primary hover:text-on-primary-fixed-variant transition-colors duration-200 hover:underline underline-offset-2">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/signup.js"></script>
+</body>
+</html>
