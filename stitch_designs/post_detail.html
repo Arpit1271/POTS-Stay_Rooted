@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pot Detail - Terra</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#665e53",
+                        "secondary-fixed": "#ece1d3",
+                        "secondary-dim": "#595248",
+                        "on-tertiary": "#fff8f1",
+                        "on-error-container": "#6e0a12",
+                        "on-primary-container": "#2a5b3b",
+                        "background": "#f7faf4",
+                        "surface-container-high": "#e3eae2",
+                        "primary": "#386948",
+                        "primary-fixed": "#b9efc5",
+                        "on-tertiary-fixed-variant": "#6c5421",
+                        "on-tertiary-container": "#614b18",
+                        "on-secondary-fixed": "#453e34",
+                        "on-surface-variant": "#59615a",
+                        "inverse-surface": "#0b0f0c",
+                        "error-container": "#fa746f",
+                        "on-background": "#2c342e",
+                        "on-primary": "#e8ffe9",
+                        "tertiary-fixed-dim": "#ebcb8b",
+                        "tertiary-fixed": "#fad998",
+                        "secondary-fixed-dim": "#ded3c5",
+                        "on-secondary-container": "#585146",
+                        "surface": "#f7faf4",
+                        "outline-variant": "#abb4ac",
+                        "surface-dim": "#d3dcd3",
+                        "surface-container-low": "#f0f5ee",
+                        "surface-variant": "#dce5db",
+                        "on-tertiary-fixed": "#4d3806",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e9f0e8",
+                        "outline": "#747d75",
+                        "on-primary-fixed": "#15482a",
+                        "inverse-primary": "#bef5ca",
+                        "error-dim": "#67040d",
+                        "primary-dim": "#2b5d3c",
+                        "on-secondary": "#fff8f2",
+                        "tertiary": "#745c27",
+                        "surface-tint": "#386948",
+                        "primary-container": "#b9efc5",
+                        "tertiary-dim": "#67501c",
+                        "on-surface": "#2c342e",
+                        "inverse-on-surface": "#9a9e99",
+                        "on-primary-fixed-variant": "#346544",
+                        "error": "#a83836",
+                        "surface-container-highest": "#dce5db",
+                        "on-secondary-fixed-variant": "#625a50",
+                        "surface-bright": "#f7faf4",
+                        "on-error": "#fff7f6",
+                        "tertiary-container": "#fad998",
+                        "primary-fixed-dim": "#abe1b7",
+                        "secondary-container": "#ece1d3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Literata", "serif"],
+                        "display": ["Literata", "serif"],
+                        "body": ["Nunito Sans", "sans-serif"],
+                        "label": ["Nunito Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden sticky top-0 z-40 flex justify-between items-center px-6 py-4 w-full bg-surface/90 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant p-2 -ml-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-xl font-headline font-bold text-primary">POTS</h1>
+</div>
+<button class="text-primary font-bold text-label-sm uppercase tracking-wider">New Pot</button>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface flex-col py-8 px-6 gap-8 z-50">
+<div class="flex items-center gap-4 px-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined icon-filled">eco</span>
+</div>
+<div>
+<h1 class="text-2xl font-headline font-bold text-primary">POTS</h1>
+<p class="text-label-sm text-on-surface-variant">Stay Rooted</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow mt-8">
+<!-- Active: Home -->
+<a class="flex items-center gap-4 px-4 py-3 text-primary font-bold border-r-4 border-primary hover:bg-surface-container-high transition-colors rounded-l-xl" href="#">
+<span class="material-symbols-outlined icon-filled">home</span>
+<span class="font-label text-label-lg">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label text-label-lg">Explore</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label text-label-lg">Notifications</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-label-lg">Profile</span>
+</a>
+</div>
+<button class="bg-primary text-on-primary rounded-xl py-3 px-4 font-bold shadow-sm hover:opacity-90 scale-95 active:scale-90 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+            New Pot
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-2xl mx-auto md:ml-64 lg:ml-64 lg:mr-80 min-h-screen pb-24 md:pb-12 pt-4 md:pt-8 px-4 sm:px-6">
+<!-- Desktop Back Header -->
+<div class="hidden md:flex items-center gap-4 mb-6 sticky top-0 bg-background/95 backdrop-blur z-30 py-4 -mx-4 px-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">arrow_back</span>
+</button>
+<h2 class="font-headline text-xl font-bold text-on-surface">Pot</h2>
+</div>
+<!-- The Main Pot (Post) -->
+<article class="bg-surface-container-lowest rounded-[24px] p-5 sm:p-7 mb-8 shadow-[0_4px_20px_rgba(46,50,48,0.03)] border border-surface-variant/30">
+<!-- Author Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3 sm:gap-4">
+<img alt="Profile photo" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-surface" data-alt="A warm, inviting portrait of a woman with curly hair, bathed in soft golden hour sunlight. She is standing outdoors near lush green foliage, wearing a textured, earthy-toned knit sweater. The overall mood is grounded, organic, and friendly, reflecting a natural and unhurried lifestyle. High-key natural lighting emphasizes warm cream and soft amber tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgXWY9WaoPUEyeEg5pkd1LJUXrW1jRKPC3VNdW4BEXgtzi_Rhd10cduB-Ev3ESp6ne4RfMnLC6mEZ1WMM_s26mY4aqoQDz83Q_P19C7u4lYv2QVFaBt60qPwac7Es-i9k-pPSnI7_asdTiSLZ29-0amuz8Qk-dicT9NzV3PGK-wxPKaJOF_XO2x7wc0havtlJGBxMbGq8GMU6CgGyq94DLDhDR16cP4iZ5lz0dZvewQT4luD6LWtruZMLlRTc28zDwNkPC6Ak4y8M"/>
+<div>
+<h3 class="font-headline font-bold text-lg text-primary-dim leading-tight">Elara Vance</h3>
+<div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+<span>@elaragrows</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant/50"></span>
+<span>2 hours ago</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- Pot Content -->
+<div class="mb-6">
+<p class="font-body text-lg sm:text-xl text-on-surface leading-[1.7] mb-4">
+                    Just finished repotting my Monstera Deliciosa. It's incredible how much a fresh blend of aroid mix and a slightly larger terracotta pot can revive a plant. The roots were starting to circle, but now it has room to breathe. 🌿✨
+                </p>
+<p class="font-body text-lg sm:text-xl text-on-surface leading-[1.7]">
+                    Does anyone else add a touch of horticultural charcoal to their mix? I feel like it really helps keep the soil sweet.
+                </p>
+<!-- Attached Image -->
+<div class="mt-5 rounded-xl overflow-hidden bg-surface-container-low aspect-[4/3] sm:aspect-video relative">
+<img alt="Monstera plant in terracotta pot" class="w-full h-full object-cover" data-alt="A close-up view of a healthy Monstera Deliciosa plant newly potted in a large, weathered terracotta pot. The pot sits on a rustic wooden table surrounded by small gardening tools and a bag of coarse soil mix. Soft, diffused daylight streams in from a nearby window, highlighting the deep forest green of the leaves and the warm amber hue of the terracotta. The scene feels earthy, calm, and deeply rooted in nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDfwerijQl8Dv51a2tq8TnNNW89oaMASH9NvR-ldvez6r8U8p8Sla_cc5wUt_Nwh9ur7En7VRs0Spo_t_9_lHLitQA_LN5iqRXDcGJExg1HWQXLBkWSDjhdhhq3WVRPl_kSA10AlRbY45JLL7e2XOjc0CkMkQA52acn5PDBNyuSlVSP_dQh6lYTD7QiHp7t4XGMTZF5dFWK2Twncp59185RjEhQ3FmML6tn4uWk-7Sz47ntwdqgdPp3QgtcMk6BJqmOYeJt5V7LiQ"/>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center justify-between text-on-surface-variant border-t border-surface-variant/30 pt-4 mt-2">
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<div class="p-2 rounded-full group-hover:bg-primary-container/30 transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<span class="font-label text-sm">24</span>
+</button>
+<button class="flex items-center gap-2 hover:text-tertiary transition-colors group">
+<div class="p-2 rounded-full group-hover:bg-tertiary-container/30 transition-colors">
+<span class="material-symbols-outlined">recycling</span>
+</div>
+<span class="font-label text-sm">5</span>
+</button>
+<button class="flex items-center gap-2 hover:text-error transition-colors group text-error">
+<div class="p-2 rounded-full group-hover:bg-error-container/30 transition-colors">
+<span class="material-symbols-outlined icon-filled">favorite</span>
+</div>
+<span class="font-label text-sm font-medium">142</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<div class="p-2 rounded-full group-hover:bg-primary-container/30 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</div>
+</button>
+</div>
+</article>
+<!-- Reply Section -->
+<section class="mb-8">
+<h4 class="font-headline text-lg font-bold text-on-surface mb-6 px-2">Replies</h4>
+<!-- Input Field -->
+<div class="flex gap-3 sm:gap-4 items-start mb-8 px-2">
+<img alt="Your profile" class="w-10 h-10 rounded-full object-cover mt-1" data-alt="A small, circular profile picture showing a man with a warm smile, wearing a simple olive green t-shirt. The background is a soft, out-of-focus natural landscape. The lighting is warm and natural, fitting an organic, earthy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwwaREHWrhbLKowDRIVtfaTlBsno3rz9C-tWIb-uaNbZxcouPSU5bNtuJ9NOpLDO6bCMoDC_4axmCt3Dj_QehSkKLru41eJpzDDnksJQHzrcXO65YaAAfZ6XHLKRdbp7tYPYi53gg-UtcR4kIUko4RNcTvZcJEIhu8z_LxS4oeN5118nCXZwYJP4DMOcmJumi5ve32TgahMQPOCI1B9GQWqBUHVUR4MhscL9w4uVCCznizIi6BYMiyHCguej8zwGL37wKEd_KC_rI"/>
+<div class="flex-1 bg-surface rounded-[20px] p-1 border border-outline-variant/30 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-sm">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body resize-none p-3 placeholder:text-on-surface-variant/60" placeholder="Plant a reply..." rows="2" style="min-height: 80px;"></textarea>
+<div class="flex justify-between items-center px-3 pb-2 pt-1">
+<div class="flex gap-1 text-primary">
+<button class="p-2 rounded-full hover:bg-primary-container/50 transition-colors"><span class="material-symbols-outlined text-xl">image</span></button>
+<button class="p-2 rounded-full hover:bg-primary-container/50 transition-colors"><span class="material-symbols-outlined text-xl">mood</span></button>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-xl font-bold font-label text-sm hover:bg-primary-dim transition-colors shadow-sm">Plant</button>
+</div>
+</div>
+</div>
+<!-- Threaded Replies List -->
+<div class="flex flex-col gap-6">
+<!-- Reply 1 -->
+<div class="flex gap-3 sm:gap-4 px-2">
+<img alt="User avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a person with a bright expression, framed closely against a soft, creamy beige background. Warm, golden sunlight hits one side of their face softly. They are wearing casual, earth-toned clothing. The aesthetic is approachable, human-centric, and natural." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYUgyz--MlY2qW2R2Zl4JbZt7jSNMjeebwzTm91kwh_-8gXNCiTHIbPJgu1JuMF09quD-EasJwKxdOyZRHHNwhNGnTz77jsAC8IgyU2iML0f0xfyL9W-KDY5QJ34VYlk-hCIUzqXgku_7sd9SKBfWkVAXoXwsLj5G3bh-LsKLq_NnWNgi4QW56OOhj7k74fBsh8U-IKACy6yhiGCO7Y1bKljCteWcRgPbbt6aqwIS7LtMzqXO0RaRU7atQFLV2s7Nh0Fwtot4Hk68"/>
+<div class="flex-1">
+<div class="bg-surface-container-low rounded-2xl rounded-tl-none p-4 shadow-[0_2px_10px_rgba(46,50,48,0.02)]">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-headline font-bold text-on-surface">Julian Hayes</span>
+<span class="text-label-sm text-on-surface-variant">@jules_botanica</span>
+<span class="text-label-sm text-on-surface-variant ml-auto">1h</span>
+</div>
+<p class="font-body text-on-surface leading-relaxed">
+                                Always use charcoal! It completely changed how my Philodendrons behave. It acts like a little buffer for any overwatering mistakes. Your Monstera looks incredibly happy.
+                            </p>
+</div>
+<div class="flex gap-4 mt-2 px-2 text-label-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors flex items-center gap-1 font-medium"><span class="material-symbols-outlined text-base">favorite</span> 12</button>
+<button class="hover:text-primary transition-colors font-medium">Reply</button>
+</div>
+<!-- Nested Reply -->
+<div class="flex gap-3 sm:gap-4 mt-4 relative">
+<div class="absolute -left-[28px] sm:-left-[32px] top-0 bottom-4 w-px bg-outline-variant/30"></div>
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQsblcONpRA9CCBmoXpOwS9nAZjkfIBHXbE6PHgO8NUaUAZF1fjnAtlCfwbly3aNiP5uJQpInHj962ltBUzpEpXogMFnZRYh9rPGMpoP-k1D4OENjW8MLZh5M9sfv__CpJdsZGlo_z3nL0HUDquKmqU1ovCj8eKQJyYWK7Y_n28LdR5hLJ52UHtIOKGPL_0B4ghC_ip1SBjCESAYntOY8xngQmsQg2bXHhKCHfBR55zKXIJcfJJuwJ4GgxB0ReKj-U33AZGl6yRTI"/>
+<div class="flex-1">
+<div class="bg-surface-container rounded-2xl rounded-tl-none p-3 shadow-none">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-headline font-bold text-primary-dim text-sm">Elara Vance</span>
+<span class="bg-primary/10 text-primary text-[10px] uppercase font-bold px-1.5 py-0.5 rounded">Author</span>
+</div>
+<p class="font-body text-sm text-on-surface leading-relaxed">
+                                        Exactly! It's such a lifesaver. I started adding it to my Hoya mixes too.
+                                    </p>
+</div>
+<div class="flex gap-4 mt-2 px-2 text-label-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors flex items-center gap-1 font-medium"><span class="material-symbols-outlined text-base">favorite</span> 3</button>
+<button class="hover:text-primary transition-colors font-medium">Reply</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reply 2 -->
+<div class="flex gap-3 sm:gap-4 px-2">
+<img alt="User avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A headshot of a smiling man with a short beard, set outdoors with a blurred background of warm, earthy tones reminiscent of a dried grassy field or autumn trees. The light is soft and diffused. He wears a simple, muted secondary-color jacket. The overall feeling is grounded and serene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFcnRe4iFoUinNnYPGO88_hFNMMyZS-LapY9m5y_t27YrgHQ-MmGtUYwPxaz3n6J6FnFDHcBnP4weYS_cjbalOrYfaW5mtU8Cp9_mMBNa-1MGETxxKmnxsCtcvHlO3TKvva4a7vQPW4-QjBYgcw36PZJEbhhfXbrki1ZCZisMd-kcMd3BbQKUSUhXHM-3Zdm4HY3nku4yHIo_O7XBMZMNCb3hdvVvOrADZi6IzU8cSA3_GEysk0we9fw0P0FOwDY-2iNgHfGfkXx4"/>
+<div class="flex-1">
+<div class="bg-surface-container-low rounded-2xl rounded-tl-none p-4 shadow-[0_2px_10px_rgba(46,50,48,0.02)]">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-headline font-bold text-on-surface">Sam Thorne</span>
+<span class="text-label-sm text-on-surface-variant">@thorny_sam</span>
+<span class="text-label-sm text-on-surface-variant ml-auto">45m</span>
+</div>
+<p class="font-body text-on-surface leading-relaxed">
+                                I usually stick to perlite and orchid bark, never tried charcoal. Might have to pick some up this weekend! Beautiful pot choice by the way, the patina on that terracotta is gorgeous.
+                            </p>
+</div>
+<div class="flex gap-4 mt-2 px-2 text-label-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors flex items-center gap-1 font-medium"><span class="material-symbols-outlined text-base">favorite</span> 5</button>
+<button class="hover:text-primary transition-colors font-medium">Reply</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Right Sidebar (Desktop Only) -->
+<aside class="hidden lg:flex flex-col w-80 fixed right-0 top-0 h-screen bg-surface px-6 py-8 gap-10 border-l border-surface-variant/50 overflow-y-auto z-40">
+<!-- Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full py-3 pl-12 pr-4 text-on-surface font-body focus:ring-2 focus:ring-primary-fixed-dim transition-all placeholder:text-on-surface-variant" placeholder="Search the greenhouse..." type="text"/>
+</div>
+<!-- Trending Soil -->
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface mb-4">Trending Soil</h3>
+<div class="flex flex-col gap-4">
+<a class="group" href="#">
+<p class="text-label-sm text-on-surface-variant mb-0.5">Propagation • Trending</p>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors font-headline">#WaterPropWednesday</p>
+<p class="text-label-sm text-on-surface-variant">1,204 pots</p>
+</a>
+<a class="group" href="#">
+<p class="text-label-sm text-on-surface-variant mb-0.5">Community Event</p>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors font-headline">Spring Seed Swap</p>
+<p class="text-label-sm text-on-surface-variant">Happening locally in 2 days</p>
+</a>
+<a class="group" href="#">
+<p class="text-label-sm text-on-surface-variant mb-0.5">Care Tips • Trending</p>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors font-headline">Combating Fungus Gnats</p>
+<p class="text-label-sm text-on-surface-variant">856 pots</p>
+</a>
+</div>
+</div>
+<!-- Growers to Follow -->
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface mb-4">Growers to Follow</h3>
+<div class="flex flex-col gap-5">
+<div class="flex items-center gap-3">
+<img alt="Suggestion 1" class="w-10 h-10 rounded-full object-cover" data-alt="A soft, warmly lit portrait of a person with gentle features, looking thoughtfully off-camera. The background is a very soft, blurry mix of warm tertiary colors, like a sunset field. Earthy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_c8ewLGUGXzx95ACvvSok_PYbJE4WkU-yFfq_k_fSOSbj5H6avS6nHDqibBrnbdO59MBUWfi94ia1r8NlfzBu0OeFel1WAncQvrz8Y2rMaFeSj_n_sV8vdl-kWGHnjGOoD9hCZTeAf77740J0OxN96fFSaMYyo_qoYfntkQNfvfGt20JjLTB7o2p26LJvoaulcdsRaj66LKW5-6_rTMyE3KKxy_tzH68jGHXRPZ_hx6yLO45NWLLhVx9k7ujUdvgiCErLHXkl44k"/>
+<div class="flex-1 min-w-0">
+<p class="font-bold text-sm text-on-surface truncate font-headline">Maya Fern</p>
+<p class="text-label-sm text-on-surface-variant truncate">@maya_botanist</p>
+</div>
+<button class="text-primary font-bold text-sm bg-primary-container px-4 py-1.5 rounded-full hover:bg-primary hover:text-on-primary transition-colors">Follow</button>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Suggestion 2" class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a rugged-looking person with a warm, genuine smile. They are positioned against a backdrop of deep forest green foliage, perfectly matching the primary brand color. The lighting is natural and dappled, creating a sense of rooted warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsMhlCxJLVoyPDORT8OOO4k9F17ey_4PRYY_K0hkfxWbIO26YgLAeKjG380L0cgQQw1J5QgrBS-ZDUs1JVqX2P-YNSkS2HOTbshlgE_I1l5x4mVQBURPQc9OC9DbGcZYHpuGTOgbB_Wt0HvTzQVuxDm6HCrs9b5-cMDSGaEpBRJsEfQHG3ZHVnKWX6EM6XOjC-ai-WhyfWLlDfiM8xb1stTgvKUERnOMu_Ku5DEXXTMdGbX_VlbH9t3kdpxfRFCktfZ_X0A4Gjk0A"/>
+<div class="flex-1 min-w-0">
+<p class="font-bold text-sm text-on-surface truncate font-headline">Leo Roots</p>
+<p class="text-label-sm text-on-surface-variant truncate">@leo_urbanjungle</p>
+</div>
+<button class="text-primary font-bold text-sm bg-primary-container px-4 py-1.5 rounded-full hover:bg-primary hover:text-on-primary transition-colors">Follow</button>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-surface-variant/30 text-label-sm text-on-surface-variant flex flex-wrap gap-x-3 gap-y-1">
+<a class="hover:underline" href="#">Terms</a>
+<a class="hover:underline" href="#">Privacy Policy</a>
+<a class="hover:underline" href="#">Cookie Policy</a>
+<a class="hover:underline" href="#">Accessibility</a>
+<span>© 2024 POTS</span>
+</div>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container rounded-t-xl shadow-[0_-4px_20px_rgba(46,50,48,0.05)] border-t border-surface-variant/20">
+<!-- Active: Home -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 min-w-[64px] active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined icon-filled mb-1">home</span>
+<span class="font-label text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 min-w-[64px] hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="font-label text-[10px]">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 min-w-[64px] hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span class="font-label text-[10px]">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 min-w-[64px] hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>

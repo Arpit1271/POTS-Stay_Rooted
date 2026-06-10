@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explore - POTS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&amp;family=Nunito+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#665e53",
+                    "secondary-fixed": "#ece1d3",
+                    "secondary-dim": "#595248",
+                    "on-tertiary": "#fff8f1",
+                    "on-error-container": "#6e0a12",
+                    "on-primary-container": "#2a5b3b",
+                    "background": "#f7faf4",
+                    "surface-container-high": "#e3eae2",
+                    "primary": "#386948",
+                    "primary-fixed": "#b9efc5",
+                    "on-tertiary-fixed-variant": "#6c5421",
+                    "on-tertiary-container": "#614b18",
+                    "on-secondary-fixed": "#453e34",
+                    "on-surface-variant": "#59615a",
+                    "inverse-surface": "#0b0f0c",
+                    "error-container": "#fa746f",
+                    "on-background": "#2c342e",
+                    "on-primary": "#e8ffe9",
+                    "tertiary-fixed-dim": "#ebcb8b",
+                    "tertiary-fixed": "#fad998",
+                    "secondary-fixed-dim": "#ded3c5",
+                    "on-secondary-container": "#585146",
+                    "surface": "#f7faf4",
+                    "outline-variant": "#abb4ac",
+                    "surface-dim": "#d3dcd3",
+                    "surface-container-low": "#f0f5ee",
+                    "surface-variant": "#dce5db",
+                    "on-tertiary-fixed": "#4d3806",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#e9f0e8",
+                    "outline": "#747d75",
+                    "on-primary-fixed": "#15482a",
+                    "inverse-primary": "#bef5ca",
+                    "error-dim": "#67040d",
+                    "primary-dim": "#2b5d3c",
+                    "on-secondary": "#fff8f2",
+                    "tertiary": "#745c27",
+                    "surface-tint": "#386948",
+                    "primary-container": "#b9efc5",
+                    "tertiary-dim": "#67501c",
+                    "on-surface": "#2c342e",
+                    "inverse-on-surface": "#9a9e99",
+                    "on-primary-fixed-variant": "#346544",
+                    "error": "#a83836",
+                    "surface-container-highest": "#dce5db",
+                    "on-secondary-fixed-variant": "#625a50",
+                    "surface-bright": "#f7faf4",
+                    "on-error": "#fff7f6",
+                    "tertiary-container": "#fad998",
+                    "primary-fixed-dim": "#abe1b7",
+                    "secondary-container": "#ece1d3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Literata"
+                    ],
+                    "display": [
+                            "Literata"
+                    ],
+                    "body": [
+                            "Nunito Sans"
+                    ],
+                    "label": [
+                            "Nunito Sans"
+                    ]
+            },
+            "fontSize": {}
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline {
+            font-family: 'Literata', serif;
+        }
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex">
+<!-- SideNavBar (WEB) -->
+<nav class="hidden md:flex flex-col py-8 px-6 gap-8 bg-surface dark:bg-surface-dim h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm z-50 border-r border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a serene young woman surrounded by soft, blurred green foliage. The lighting is natural and dappled, creating a warm, organic feel that perfectly aligns with the earthy Terra aesthetic. Her expression is calm and grounded." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNILtpDgY-MOGKPFbsVQ37UbdArohgXhfsBbO32YRkYDFsjThFdr_Wt8uHRWey3ZBHVFOdIoSN4PmpNXkGl0YlG2GSDJVfgZj_jRmcGpAVxUQjD9w7rsvxlAIkqSonrlejRteGtRfKEVZeG7_ND1FLWJn2iN5t_L8pcVt7LzzSBTUPL5ZNtbUnq8WwMJbTuEVOIMlJc0Qd7sbDpzbm5jd0BklQhfljCMKc2Q2gUqLppSIscMLao7sVNMVv0mKsjGA-IwNsOm5CCvo"/>
+</div>
+<div>
+<h1 class="text-2xl font-headline font-bold text-primary dark:text-primary-fixed-dim m-0 leading-none">POTS</h1>
+<p class="text-on-surface-variant text-sm font-body">Stay Rooted</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 mt-4 font-body text-body-md leading-relaxed">
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+                    Home
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-surface-container-high transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="search" data-weight="fill">search</span>
+                    Explore
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                    Notifications
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                    Profile
+                </a>
+</li>
+</ul>
+<div class="mt-auto">
+<button class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-primary-dim transition-colors scale-95 active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Pot
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 w-full md:ml-64 relative min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar (MOBILE & WEB fallback structure) -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-6 py-4 w-full max-w-4xl mx-auto bg-surface/80 backdrop-blur-md font-headline text-headline-sm md:hidden">
+<div class="flex items-center gap-2">
+<h1 class="text-xl font-headline font-bold text-primary">POTS</h1>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                 New Pot
+             </button>
+</header>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+<!-- Search Header -->
+<div class="mb-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline-variant">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl py-4 pl-12 pr-4 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body text-lg shadow-sm transition-shadow hover:shadow-md" placeholder="Search plants, growers, tips..." type="text" value="Monstera Deliciosa"/>
+<button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-outline-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex space-x-6 border-b border-surface-variant mb-8 overflow-x-auto scrollbar-hide">
+<button class="pb-3 border-b-2 border-primary text-primary font-bold px-2 whitespace-nowrap">Top</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-primary transition-colors px-2 whitespace-nowrap">Latest</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-primary transition-colors px-2 whitespace-nowrap">Growers</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-primary transition-colors px-2 whitespace-nowrap">Media</button>
+</div>
+<!-- Results Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Hero Result (Featured) -->
+<div class="md:col-span-12 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group relative flex flex-col md:flex-row h-auto md:h-80 border border-outline-variant/10">
+<div class="w-full md:w-1/2 h-64 md:h-full relative overflow-hidden">
+<img alt="Monstera Deliciosa plant" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A lush, vibrant Monstera Deliciosa plant with large, fenestrated leaves bathed in warm, dappled sunlight. The background is a soft, earthy cream tone, highlighting the rich forest greens of the foliage. The scene exudes a calming, grounded atmosphere typical of organic interior design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2mmUpOxfj0lKzZaJjnrDgUxewQLG0tFvJfD78fy7zALlix3EolpN6hoy9B2bG9EbxLnSEWy5lKla-Ja-89QYd7IBtjo4UvgVz2ySkTgnLfzO4mmPtEiVBMHgvl2cbwGguJsY9kbJTGAYp4ZwUdKwWB08-1lO63Q7zQQKZDsikUeGnROAg1KhqStdE4N0YSlxdjIy9RBs9JgOz2NVC-sHM2r16HOevai6XSiUA7NSgVBEywLaC43fIfaT3cN2ALg6-ys7jw7ltQGA"/>
+<div class="absolute top-4 left-4 bg-tertiary text-on-tertiary text-xs font-bold px-3 py-1 rounded-full shadow-sm">Featured</div>
+</div>
+<div class="w-full md:w-1/2 p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h2 class="text-2xl font-headline font-bold text-on-surface">Monstera Deliciosa Care Guide</h2>
+<button class="text-outline-variant hover:text-primary"><span class="material-symbols-outlined">bookmark</span></button>
+</div>
+<p class="text-on-surface-variant font-body mb-4">Everything you need to know about keeping your Swiss Cheese plant thriving, from soil mix to dealing with aerial roots.</p>
+<div class="flex gap-2 flex-wrap mb-6">
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs text-on-surface-variant">#care</span>
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs text-on-surface-variant">#monstera</span>
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs text-on-surface-variant">#beginner</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Grower avatar" class="w-10 h-10 rounded-full object-cover border-2 border-surface" data-alt="A candid portrait of a woman with a warm, welcoming smile, wearing earthy-toned clothing. The lighting is soft and golden, complementing the serene, grounded Terra brand aesthetic. The background is softly out of focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxtyB5T75sAb35aFfx6SgORVqeGmO7d3EG61ru04RUviv_czdxeQQGNEuNrH_XkIvp1sS1_g1rgESikv0VDPoDY_ltUvurGlKtiHET5U_-6GbPBkMvdcrzzMWFwwpa9pBVOdgUVi1XgBW1YrIgd_qwK9ZokJ9b7DSb1qeZc-dQXaOgyTyo80KF5pw0M_-P9lNhbOkuTk9V91fMY9ivZBTHLIb7czfp4GTc3U02PsoWVW9wl1FwpGDe5AlN-3SchXTcGe4Zp1lspBc"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Master Grower</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Grower Card -->
+<div class="md:col-span-4 bg-surface-container-high rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm hover:bg-surface-container-highest transition-colors cursor-pointer border border-outline-variant/10">
+<img alt="Grower profile" class="w-24 h-24 rounded-full object-cover mb-4 border-4 border-surface-container-lowest" data-alt="A portrait of a male plant enthusiast in a greenhouse setting. He is wearing a simple linen shirt. The color palette emphasizes warm neutrals and forest greens, creating a relaxed, approachable mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0ZsRqOG9othSMT4iqWao1zJsqed1sD1AKSb4KquuDH0KwmaxxVCJqxkIGxL2PjyZfkus4-zcsdZOmcCyRcFR0i6Octva7CPKowH5M6nsnmg79SM7ZFiLuoj-ds0Yb-r031cBcDIdotrgBiubwNiIEl__bHfYJwVJg9JGJfHtkg_mIa4-UuFrRNiTN75-pr5GTK7K4v0NDAXTWqcogBcJL41mp5ffNZEghi5AYFmvVyKcdenBC5QYENtr7I3xsQRGEfEA3xXkEMmU"/>
+<h3 class="text-lg font-bold text-on-surface font-headline mb-1">Alex Chen</h3>
+<p class="text-sm text-primary font-bold mb-3">@aroid_alex</p>
+<p class="text-sm text-on-surface-variant mb-4 px-2">Aroid collector &amp; propagation enthusiast.</p>
+<button class="w-full py-2 border border-primary text-primary rounded-xl font-bold hover:bg-primary hover:text-on-primary transition-colors">Follow</button>
+</div>
+<!-- Smaller Image Cards -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm group border border-outline-variant/10 relative">
+<img alt="Variegated Monstera" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of a rare Variegated Monstera leaf. The striking white and deep green patterns are captured in soft, diffused light, highlighting the natural texture against a warm cream background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKnC7xC9SaBKKSau3YZbw0l7ehLjuyd1NcBsp-B71NONw3AbxvailrTKbPEVMd9e4Fzple29tYtBswDfHvJFtyO8HQBcRQBKsGYiXljFF12CEfPupYs6Lxl2hBlMCVeIAEfoWKUCmOqI5KGSdWHGiVlvXv3UQ2RXUBLOjm-IlZhPQhMgJNeNcKwaGsQXqUD2W4o9N9YYWLnVG-0oNGhInZ9Z9FpO04cuyhffDSO4Sh9aYqEozzc_ZEo9mP_CVlj5RzF3qxZVcbmvs"/>
+<div class="p-4">
+<h4 class="font-bold text-on-surface mb-1 truncate">Albo Variegata Propagation</h4>
+<p class="text-xs text-on-surface-variant mb-2">Just potted up these cuttings!</p>
+<div class="flex items-center gap-1 text-xs text-outline">
+<span class="material-symbols-outlined text-[16px]">favorite</span> 124
+                        </div>
+</div>
+</div>
+<div class="md:col-span-4 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm group border border-outline-variant/10 relative">
+<img alt="Succulent arrangement" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A macro shot of a geometric succulent arrangement in a rustic terracotta pot. The warm amber tones of the pot contrast beautifully with the muted greens of the plants. The lighting is soft and earthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfYy2gOZxU_J51GkO3rmJ7tHXCAPBLIdUqrb3c4OnnQgenxuhEUvfqtZ4N_9EZfPc4ATnds4-S7yfrVxIaThlcEqPUXVuKPkZaY0inT5DFafiN2Xd_mpO_wvrH7pSZ4oAlOIVRZkHKwipUzREwj8Me5iUmr5xy3ce7yWuqZ2kRqGjLmY_dpZA83zuzRjilxDBN1jKm6RwwqD9KvsJtpRWU8j9bUPX70Pr5nzzB_nCl4aHBovgbMVRCzbrXpVpqrzpzNOgttdyArk"/>
+<div class="p-4">
+<h4 class="font-bold text-on-surface mb-1 truncate">Monstera Repotting Day</h4>
+<p class="text-xs text-on-surface-variant mb-2">My chunky soil mix recipe.</p>
+<div class="flex items-center gap-1 text-xs text-outline">
+<span class="material-symbols-outlined text-[16px]">favorite</span> 89
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (MOBILE) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden bg-surface-container dark:bg-surface-container-highest shadow-lg rounded-t-xl font-label text-label-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 active:scale-95 transition-all rounded-xl w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 active:scale-95 transition-all w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="search" data-weight="fill">search</span>
+<span class="text-xs font-bold">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 active:scale-95 transition-all rounded-xl w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="notifications">notifications</span>
+<span class="text-xs">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 active:scale-95 transition-all rounded-xl w-16" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-xs">Profile</span>
+</a>
+</nav>
+</body></html>

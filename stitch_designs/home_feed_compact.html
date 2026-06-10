@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POTS - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700;800&amp;family=Nunito+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#c4a66a",
+                    "on-primary-fixed": "#002110",
+                    "primary-fixed-dim": "#8ecf9e",
+                    "on-surface": "#2e3230",
+                    "tertiary-fixed": "#f8e0a8",
+                    "secondary-container": "#f0e8db",
+                    "outline": "#74796e",
+                    "on-primary": "#ffffff",
+                    "error": "#b83230",
+                    "on-tertiary-fixed": "#221a05",
+                    "tertiary": "#705c30",
+                    "surface-variant": "#e4e0d8",
+                    "surface-bright": "#faf6f0",
+                    "on-secondary-fixed-variant": "#4a4538",
+                    "primary": "#4a7c59",
+                    "on-primary-fixed-variant": "#2a6038",
+                    "inverse-on-surface": "#f5f0e8",
+                    "surface": "#faf6f0",
+                    "primary-fixed": "#c8e8d0",
+                    "primary-container": "#78a886",
+                    "on-background": "#2e3230",
+                    "on-error": "#ffffff",
+                    "background": "#faf6f0",
+                    "surface-container-high": "#eae6de",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#1e1a13",
+                    "on-secondary-container": "#5e5548",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#690005",
+                    "outline-variant": "#c4c8bc",
+                    "on-tertiary-container": "#554020",
+                    "inverse-surface": "#2e3230",
+                    "secondary-fixed": "#f0e8db",
+                    "surface-tint": "#4a7c59",
+                    "surface-container": "#f0ece4",
+                    "inverse-primary": "#8ecf9e",
+                    "tertiary-fixed-dim": "#dcc48e",
+                    "surface-container-low": "#f5f1ea",
+                    "on-primary-container": "#d8f0de",
+                    "on-tertiary-fixed-variant": "#554020",
+                    "secondary-fixed-dim": "#d4ccbf",
+                    "surface-dim": "#dbd7cf",
+                    "surface-container-highest": "#e4e0d8",
+                    "secondary": "#6b6358",
+                    "on-surface-variant": "#4a4e4a",
+                    "error-container": "#ffdad8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Literata"
+                    ],
+                    "display": [
+                            "Literata"
+                    ],
+                    "body": [
+                            "Nunito Sans"
+                    ],
+                    "label": [
+                            "Nunito Sans"
+                    ]
+            },
+            "fontSize": {}
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: theme('fontFamily.body');
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline {
+            font-family: theme('fontFamily.headline');
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px rgba(46, 50, 48, 0.06);
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased flex flex-col md:flex-row">
+<!-- TopAppBar for Mobile (Hidden on md+) -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-6 py-4 w-full max-w-4xl mx-auto bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md md:hidden border-b border-surface-container-low/50">
+<div class="text-xl font-headline font-bold text-primary dark:text-primary-fixed-dim">POTS</div>
+<button class="bg-primary text-on-primary rounded-xl px-4 py-2 font-label text-sm hover:opacity-80 transition-opacity duration-200">New Pot</button>
+</header>
+<!-- SideNavBar for Web (Hidden on mobile) -->
+<nav class="hidden md:flex flex-col py-8 px-6 gap-8 h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-surface-dim shadow-sm border-r border-surface-container-low dark:border-surface-container z-50">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-2xl font-headline font-bold text-primary dark:text-primary-fixed-dim tracking-tight">POTS</span>
+<span class="text-sm font-body text-on-surface-variant">Stay Rooted</span>
+</div>
+<div class="flex flex-col gap-2 font-body text-lg">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-surface-container-high dark:bg-surface-container-highest text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style='font-variation-settings: "FILL" 1;'>home</span>
+                Home
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+                Explore
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                Notifications
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Profile
+            </a><a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Following
+            </a>
+</div>
+<div class="mt-auto">
+<button class="w-full py-4 rounded-xl bg-primary text-on-primary font-bold text-lg hover:bg-primary-container hover:text-on-primary-container transition-colors soft-shadow scale-95 active:scale-90 transition-transform">
+                New Pot
+            </button>
+<div class="flex items-center gap-3 mt-6 p-2 rounded-xl hover:bg-surface-container-high cursor-pointer transition-colors">
+<img alt="User profile avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A small, circular avatar image of a young woman with warm lighting, wearing natural tones. The image is professional yet casual, fitting an earthy, organic aesthetic. Soft focus background in warm cream tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFkiZUqpxQjAOTAOOUiSRpylP-CPeJoErXFpS5uFJYYblvaKFgWxmXVk4bDCRgTstPlHsqk7WzgJYrpbtcdLZl8Wk5FOXlRTgZVUCjdKoK9jqk6RlpVld1FMrb6_lwL-HAQR2i5d2DpqAR_TmgbdmBkXrshnrGY9RqJ88wdStdgyYjYx8OBK7HQQ-DFWRldpQBoUOWZdZyyuo1VPYRN4uSAkwrqmt58QtA5h63Q2pSBnWRLl1lEXojwu9CFJBv5wj9gvFO49-xw34"/>
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Elena R.</span>
+<span class="text-xs text-on-surface-variant">@elena_roots</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-2xl mx-auto md:ml-64 md:mr-80 pt-4 pb-24 md:py-8 px-4 sm:px-6">
+<!-- Compose Area -->
+<section class="bg-surface-bright rounded-xl p-4 soft-shadow mb-4 border border-surface-container-low">
+<div class="flex gap-4">
+<img alt="User" class="w-12 h-12 rounded-full object-cover shrink-0" data-alt="A small, circular avatar image of a young woman with warm lighting, wearing natural tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfZ3X2wdCg3Zl87OtXsN3h80dpnRg16u5YQ3zSFNVK2Ynn2QfTeROaFIrvN7ou94oEw3v2B9si38-Ugxk9JqNBGKpgZ4ItrZMBfF4wA7edbTBe5V0NJjGU2dDQf3wd3Cjk8lgTvk54Z48PiXwGlO78TWm4tmvzXzJPJdbcEJ6nF2TryRq3fdq1Qnau5Fktu5fqe8SagRpcdK--iOKJ7snj_6xuhL0cuEfeaG_SPBmvBO2CZIFndjo7PRqlk3kq5f_6z5jtraRT2GM"/>
+<div class="flex-1">
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none text-base placeholder-on-surface-variant/70 font-body p-0 mt-2 min-h-[60px]" placeholder="Plant a thought..."></textarea>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-surface-container-low">
+<div class="flex gap-2 text-primary">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined">image</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined">eco</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-primary">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+</div>
+<button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary/90 transition-colors">
+                            Plant
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Feed List -->
+<div class="flex flex-col gap-3">
+<!-- Post 1 -->
+<article class="bg-surface-bright rounded-xl p-4 soft-shadow border border-surface-container-low">
+<div class="flex gap-4">
+<img alt="User" class="w-12 h-12 rounded-full object-cover shrink-0" data-alt="A small circular avatar of a man in natural outdoor lighting, wearing earthy clothing. Warm tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8fu93xCzH1KcpDu9Mgi25SlX6A3F5dCC8VdlHCTY4wasQEm4oE5jCWquS9FMDdclw4D6dnd-5UPanLGY35Axizg5XkvFgcrz5SJC5zPCdci_gO1KFjmhzY-EpzC3iX4yFRoCxcdZ-k2wCpPz6m3xMcr52Hi_wsQiKRAOMPI-uDGb37db248_4ei6BlCSUSRTa-gTus8i2WOqSgsL9EPMxeR0DQBhF6mW29nvKmMsV4KGQ_UCs_uuEtAL24VXrQBxFcSwDzAwLrcU"/>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-surface font-headline">Marcus T.</span>
+<span class="text-sm text-on-surface-variant">@marcus_grows</span>
+<span class="text-sm text-outline mx-1">•</span>
+<span class="text-sm text-outline">2h</span>
+</div>
+<p class="text-on-surface font-body text-base leading-relaxed mb-2">
+                            Just repotted my Monstera Deliciosa today. The root system was incredibly dense! Using a lighter soil mix this time with more perlite. Hoping it thrives in the new terra cotta home. 🌿🪴
+                        </p>
+<div class="flex items-center justify-between text-on-surface-variant max-w-md pr-8">
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">chat_bubble</span>
+<span class="text-sm">12</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">autorenew</span>
+<span class="text-sm">4</span>
+</button>
+<button class="flex items-center gap-2 hover:text-error transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-error-container group-hover:text-error p-2 rounded-full transition-colors">favorite</span>
+<span class="text-sm">48</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Post 2 -->
+<article class="bg-surface-bright rounded-xl p-4 soft-shadow border border-surface-container-low">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container font-bold text-xl shrink-0">
+                        S
+                    </div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-surface font-headline">Sarah J.</span>
+<span class="text-sm text-on-surface-variant">@sarah_blooms</span>
+<span class="text-sm text-outline mx-1">•</span>
+<span class="text-sm text-outline">5h</span>
+</div>
+<p class="text-on-surface font-body text-base leading-relaxed mb-2">
+                            Has anyone noticed how the morning light changes in late autumn? My succulents are reaching slightly different angles now. Nature's slow dance. 🍂☀️
+                        </p>
+<div class="flex items-center justify-between text-on-surface-variant max-w-md pr-8">
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">chat_bubble</span>
+<span class="text-sm">34</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">autorenew</span>
+<span class="text-sm">12</span>
+</button>
+<button class="flex items-center gap-2 hover:text-error transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-error-container group-hover:text-error p-2 rounded-full transition-colors" data-weight="fill" style='font-variation-settings: "FILL" 1;'>favorite</span>
+<span class="text-error font-bold text-sm">156</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:bg-surface-container p-2 rounded-full transition-colors">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Right Sidebar (Hidden on smaller screens) -->
+<aside class="hidden lg:block w-80 fixed right-0 top-0 h-screen py-8 px-6 overflow-y-auto border-l border-surface-container-low dark:border-surface-container bg-surface">
+<!-- Search -->
+<div class="relative mb-8">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full py-3 pl-12 pr-4 text-on-surface placeholder-on-surface-variant focus:ring-2 focus:ring-primary focus:bg-surface-bright transition-all font-body" placeholder="Search roots..." type="text"/>
+</div>
+<!-- Trending Roots -->
+<div class="bg-surface-container rounded-xl p-5 mb-8 soft-shadow">
+<h3 class="font-headline font-bold text-xl text-on-surface mb-4">Trending Roots</h3>
+<div class="flex flex-col gap-4">
+<a class="group" href="#">
+<div class="text-xs text-on-surface-variant mb-1">Trending in Botany</div>
+<div class="font-bold text-on-surface group-hover:text-primary transition-colors">#MonsteraMonday</div>
+<div class="text-xs text-on-surface-variant mt-1">12.5k pots</div>
+</a>
+<a class="group" href="#">
+<div class="text-xs text-on-surface-variant mb-1">Trending near you</div>
+<div class="font-bold text-on-surface group-hover:text-primary transition-colors">#UrbanJungle</div>
+<div class="text-xs text-on-surface-variant mt-1">8.2k pots</div>
+</a>
+<a class="group" href="#">
+<div class="text-xs text-on-surface-variant mb-1">Trending in Care Tips</div>
+<div class="font-bold text-on-surface group-hover:text-primary transition-colors">#WateringSchedule</div>
+<div class="text-xs text-on-surface-variant mt-1">5.1k pots</div>
+</a>
+</div>
+<button class="text-primary font-bold text-sm mt-4 hover:underline">Show more</button>
+</div>
+<!-- Who to Follow -->
+<div class="bg-surface-container rounded-xl p-5 soft-shadow">
+<h3 class="font-headline font-bold text-xl text-on-surface mb-4">Grow Your Network</h3>
+<div class="flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Small circular avatar of a person smiling, warm earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMcwMxVOR4IG_fif28luTOsOs0cO4wIby5qCh0blduPlanD5NYKHD1OUJf8oA5Q1XiNpvABlK_ZVwRMpMyIU2Wf7l_NZiruTVlLPZFaD6qAHobE8IFbcsDADlVgDW9avRraZs0Ku1hiFzWvRR8JWCrI6KzUGFQ8k54g-Lily6mz49h78O30cLjW3S2M2yvoIs5UGOXslN3orKthbeHIMLaQRqi97JP-kFeY-7MPxrnCWyxotaPPvLuw-PtKtWMJVr-vSR1pKhBzOE"/>
+<div>
+<div class="font-bold text-sm text-on-surface">Botanical Gardens</div>
+<div class="text-xs text-on-surface-variant">@botanical_official</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-bold hover:bg-primary/90 transition-colors">Follow</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Small circular avatar of a man outdoors, warm earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAYg6dMnhYnonuWpDeCKZYaB5mGnB1dTqu465S49pXfbc5_8anIW5UYderuzQ7BnLgUo3VvCNXXN0Vy9fOODTXft3TvzDiu1fbQYodq8mNxa43U4t246KTJAIsvkVU-UoSifI_-SIViv0LUIWyo0SjamtEXnPDdDEOorFHBIVofaLfuRxPcBYREg6sYR5j0FBgpKPCS0HMsNH44t4ZHY49K7q9CT3BCovkLhHUWdZlcOjtR96MyQTK4pJWgj4IcQG9KeU8pH2js8Y"/>
+<div>
+<div class="font-bold text-sm text-on-surface">David C.</div>
+<div class="text-xs text-on-surface-variant">@david_ferns</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-bold hover:bg-primary/90 transition-colors">Follow</button>
+</div>
+</div>
+</div><div class="mt-6 flex flex-col gap-2 px-2">
+<button class="w-full py-2 px-4 rounded-xl border border-tertiary text-tertiary font-bold text-sm hover:bg-tertiary-container/20 transition-colors">
+        Terms and Conditions
+    </button>
+<button class="w-full py-2 px-4 rounded-xl border border-tertiary text-tertiary font-bold text-sm hover:bg-tertiary-container/20 transition-colors">
+        How we use your Data
+    </button>
+</div>
+</aside>
+<!-- BottomNavBar for Mobile (Hidden on md+) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden bg-surface-container dark:bg-surface-container-highest shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 active:scale-95 transition-all w-16" href="#">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style='font-variation-settings: "FILL" 1;'>home</span>
+<span class="font-label text-[10px] mt-1 font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all w-16" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label text-[10px] mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all w-16" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label text-[10px] mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-primary-container/50 rounded-xl active:scale-95 transition-all w-16" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
